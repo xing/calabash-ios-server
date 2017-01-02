@@ -86,7 +86,7 @@
 - (NSArray *) applyOperation:(NSDictionary *) operation
                      toViews:(NSArray *) views
                        error:(NSError *__autoreleasing*) error {
-  NSString *operationName = [operation objectForKey:@"method_name"];
+  NSString *operationName = operation[@"method_name"];
 
   if (!operationName) {  return [views copy];  }
 
