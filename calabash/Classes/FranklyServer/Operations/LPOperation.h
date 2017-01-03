@@ -13,11 +13,11 @@
 @property(nonatomic, assign) BOOL done;
 
 + (id) operationFromDictionary:(NSDictionary *) dictionary;
-
 + (NSArray *) performQuery:(id) query;
-
 - (id) initWithOperation:(NSDictionary *) operation;
-
 - (id) performWithTarget:(id) target error:(NSError **) error;
+
+- (void)getError:(NSError *__autoreleasing*)error
+ withDescription:(NSString *)description;
 
 @end

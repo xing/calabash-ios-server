@@ -28,6 +28,7 @@
 #import "LPInvocationError.h"
 #import "LPCocoaLumberjack.h"
 #import "LPJSONUtils.h"
+#import "CocoaLumberjack.h"
 
 @interface LPOperation ()
 
@@ -93,6 +94,19 @@
   return [NSString stringWithFormat:@"<%@ '%@' with arguments '%@'>",
           className, NSStringFromSelector(_selector),
           [_arguments componentsJoinedByString:@", "]];
+}
+
+- (NSError *)errorWithDescription:(NSString *)description {
+  LPLogError(@"%@", description);
+  return [NSError errorWithDomain:@"LPServerError"
+                             code:1
+                         userInfo:@{ NSLocalizedDescriptionKey : description }];
+}
+
+- (void)getError:(NSError *__autoreleasing*)error
+ withDescription:(NSString *)description {
+   NSError *innerError = [self errorWithDescription:description];
+  if (error) { *error = innerError; }
 }
 
 + (NSArray *) performQuery:(id) query {
