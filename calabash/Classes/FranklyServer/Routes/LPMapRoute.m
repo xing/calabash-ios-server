@@ -100,20 +100,41 @@
     }
   } else {
     for (id view in views) {
-      NSError *err = nil;
-      // TODO: Do nothing on error?
-      //
-      // It is hard to capture the error with the current method signature
-      // because nil is a valid response. How would you know if there was an
-      // error?
-      //
-      // What should be done if one view generates and another does not?
-      id val = [op performWithTarget:view error:&err];
-      if (err) {continue;}
-      if (val == nil) {
-        [finalRes addObject:[NSNull null]];
+      NSError *operationError = nil;
+      id operationResult = [op performWithTarget:view error:&operationError];
+
+      if (operationResult != kLPServerOperationErrorToken) {
+        // Legacy behavior - errors are ignored.  In practice, none or almost
+        // none of the existing operation subclasses populate the *error that
+        // is passed to performWithTarget:operationError.
+        if (operationError) { continue; }
+
+        if (!operationResult) {
+          [finalRes addObject:[NSNull null]];
+        } else {
+          [finalRes addObject:operationResult];
+        }
       } else {
-        [finalRes addObject:val];
+        NSString *reason = [operationError localizedDescription];
+        // Handle the cases where operationError is nil and
+        // localizedDescription is nil.
+        if (!reason) {
+          reason = [NSString stringWithFormat:@"Operation '%@' failed for "
+                    "an unknown reason", operationName];
+        } else {
+          reason = [NSString stringWithFormat:@"Operation '%@' failed with an "
+                    "an error: %@", operationName, reason];
+        }
+
+        NSString *details = [NSString stringWithFormat:@"Arguments: %@", op.arguments];
+        NSDictionary *result = @{
+                                 @"outcome" : @"FAILURE",
+                                 @"reason" : reason,
+                                 @"details" : details
+                                 };
+
+        finalRes = [NSMutableArray arrayWithArray:@[result]];
+        break;
       }
     }
   }
