@@ -44,8 +44,8 @@
 - (id) initWithOperation:(NSDictionary *) operation {
   self = [super init];
   if (self != nil) {
-    _selector = NSSelectorFromString([operation objectForKey:@"method_name"]);
-    _arguments = [operation objectForKey:@"arguments"];
+    _selector = NSSelectorFromString(operation[@"method_name"]);
+    _arguments = operation[@"arguments"];
     _done = NO;
   }
   return self;
