@@ -20,7 +20,7 @@
 
 - (NSString *) stringValueForArgument:(id) argument {
   if ([argument isKindOfClass:[NSString class]]) {
-    return [argument copy];
+    return [(NSString *)argument copy];
   } else if ([argument respondsToSelector:@selector(stringValue)]) {
     return [argument stringValue];
   } else {
@@ -31,41 +31,49 @@
 - (id) performWithTarget:(id) target error:(NSError * __autoreleasing *) error {
   NSArray *arguments = self.arguments;
   if (!arguments || [arguments count] == 0) {
-    LPLogWarn(@"Missing the 'text' argument @ index 0 of arguments; nothing to do - returning nil");
+    [self getError:error
+      formatString:@"Missing the 'text' argument @ index 0 of arguments; "
+     "nothing to do - returning nil"];
     return nil;
   }
 
   if ([target isKindOfClass:[NSDictionary class]]) {
-    NSMutableDictionary *mdict = [NSMutableDictionary dictionaryWithDictionary:target];
-    [mdict removeObjectForKey:@"html"];
+    NSMutableDictionary *mutableDictionary;
+    mutableDictionary = [NSMutableDictionary dictionaryWithDictionary:target];
+    [mutableDictionary removeObjectForKey:@"html"];
 
-    id webViewValue = [mdict valueForKey:@"webView"];
+    id webViewValue = [mutableDictionary valueForKey:@"webView"];
     if (!webViewValue) {
-      LPLogWarn(@"Missing value for 'webView' key in target; nothing to do - returning nil");
+      [self getError:error
+        formatString:@"Missing value for 'webView' key in target; nothing to "
+       "do - returning nil"];
       return nil;
     }
 
     if (![webViewValue conformsToProtocol:@protocol(LPWebViewProtocol)]) {
-      LPLogWarn(@"Expected 'webView' => UIView<LPWebViewProtocol>, found %@; nothing to do - returning nil",
-              webViewValue);
+      [self getError:error
+        formatString:@"Expected 'webView' => UIView<LPWebViewProtocol>, found %@; "
+       "nothing to do - returning nil", webViewValue];
       return nil;
     }
 
-    NSString *json = [LPJSONUtils serializeDictionary:mdict];
+    NSString *json = [LPJSONUtils serializeDictionary:mutableDictionary];
     if (!json) {
-      LPLogDebug(@"Could not '%@' to JSON; nothing to do - returning nil", mdict);
+      [self getError:error
+        formatString:@"Could not '%@' to JSON; nothing to do - returning nil",
+       mutableDictionary];
       return nil;
     }
 
     UIView<LPWebViewProtocol> *webView = (UIView<LPWebViewProtocol> *)webViewValue;
-    NSString *text = [self stringValueForArgument:[arguments objectAtIndex:0]];
+    NSString *text = [self stringValueForArgument:arguments[0]];
     NSString *javascript = [NSString stringWithFormat:LP_SET_TEXT_JS,
                             json, text];
     return [webView calabashStringByEvaluatingJavaScript:javascript];
   }
 
   if ([target respondsToSelector:@selector(setText:)]) {
-    NSString *text = [self stringValueForArgument:[arguments objectAtIndex:0]];
+    NSString *text = [self stringValueForArgument:arguments[0]];
     [target performSelector:@selector(setText:) withObject:text];
     return target;
   }

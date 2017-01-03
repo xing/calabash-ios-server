@@ -18,8 +18,9 @@
 //                        required =========> |     optional
 // _arguments ==> [target date str, format str, notify targets, animated]
 - (id) performWithTarget:(id) target error:(NSError *__autoreleasing*) error {
-  if ([target isKindOfClass:[UIDatePicker class]] == NO) {
-    LPLogWarn(@"View: %@ should be a date picker", target);
+  if (![target isKindOfClass:[UIDatePicker class]]) {
+    [self getError:error
+      formatString:@"View: %@ should be a date picker", target];
     return nil;
   }
 
@@ -29,53 +30,60 @@
 
   NSString *dateStr = arguments[0];
   if (dateStr == nil || [dateStr length] == 0) {
-    LPLogWarn(@"Date str: '%@' should be non-nil and non-empty", dateStr);
+    [self getError:error
+      formatString:@"Date str: '%@' should be non-nil and non-empty", dateStr];
     return nil;
   }
 
-  NSUInteger argcount = [arguments count];
+  NSUInteger argCount = [arguments count];
 
   NSString *dateFormat = nil;
-  if (argcount > 1) {
+  if (argCount > 1) {
     dateFormat = arguments[1];
   } else {
-    LPLogWarn(@"Date format is required as the second argument");
+    [self getError:error
+      formatString:@"Date format is required as the second argument"];
     return nil;
   }
 
 
   BOOL notifyTargets = YES;
-  if (argcount > 2) {
+  if (argCount > 2) {
     notifyTargets = [arguments[2] boolValue];
   }
 
   BOOL animate = YES;
-  if (argcount > 3) {
+  if (argCount > 3) {
     animate = [arguments[3] boolValue];
   }
 
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   [formatter setDateFormat:dateFormat];
   NSDate *date = [formatter dateFromString:dateStr];
-  if (date == nil) {
-    LPLogWarn(@"Could not create date from '%@' and format '%@'", dateStr,
-            dateFormat);
+  if (!date) {
+    [self getError:error
+      formatString:@"Could not create date from '%@' and format '%@'",
+     dateStr, dateFormat];
     return nil;
   }
 
   NSDate *minDate = picker.minimumDate;
-  if (minDate != nil && [date compare:minDate] == NSOrderedAscending) {
-    LPLogWarn(@"Could not set the date to '%@' because is earlier than the minimum date '%@'",
-            date,
-            [minDate descriptionWithLocale:[NSLocale autoupdatingCurrentLocale]]);
+  if (minDate && [date compare:minDate] == NSOrderedAscending) {
+    [self getError:error
+      formatString:@"Could not set the date to '%@' because is earlier than "
+     "the minimum date '%@'",
+     date,
+     [minDate descriptionWithLocale:[NSLocale autoupdatingCurrentLocale]]];
     return nil;
   }
 
   NSDate *maxDate = picker.maximumDate;
-  if (maxDate != nil && [date compare:maxDate] == NSOrderedDescending) {
-    LPLogWarn(@"Could not set the date to '%@' because is later than the maximum date '%@'",
-            date,
-            [maxDate descriptionWithLocale:[NSLocale autoupdatingCurrentLocale]]);
+  if (maxDate && [date compare:maxDate] == NSOrderedDescending) {
+    [self getError:error
+      formatString:@"Could not set the date to '%@' because is later than "
+     "the maximum date '%@'",
+     date,
+     [maxDate descriptionWithLocale:[NSLocale autoupdatingCurrentLocale]]];
     return nil;
   }
 

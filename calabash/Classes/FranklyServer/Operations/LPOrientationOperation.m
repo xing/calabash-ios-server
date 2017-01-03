@@ -64,7 +64,7 @@ static NSString *const kFaceUp = @"face up";
 
 + (NSString *) statusBarOrientation {
   UIInterfaceOrientation orientation = [[UIApplication sharedApplication]
-          statusBarOrientation];
+                                        statusBarOrientation];
   switch (orientation) {
     case UIInterfaceOrientationPortrait: return kDown;
     case UIInterfaceOrientationPortraitUpsideDown: return kUp;
@@ -78,7 +78,7 @@ static NSString *const kFaceUp = @"face up";
        with the device held upright and the home button on the __left__ side.
 
        ==> no need to reverse left and right <==
-      */
+       */
     case UIInterfaceOrientationLandscapeLeft: return kLeft;
     case UIInterfaceOrientationLandscapeRight: return kRight;
       /******************/
@@ -99,21 +99,24 @@ static NSString *const kFaceUp = @"face up";
 
   NSUInteger argCount = [argument count];
   if (argCount == 0) {
-    LPLogWarn(@"Requires exactly one argument: {'%@' | '%@'} found none",
-            kDevice, kStatusBar);
+    [self getError:error
+      formatString:@"Requires exactly one argument: {'%@' | '%@'} found none",
+     kDevice, kStatusBar];
     return nil;
   }
 
   if (argCount > 1) {
-    LPLogWarn(@"Argument should be {'%@' | '%@'} - found '[%@']", kDevice,
-            kStatusBar, [argument componentsJoinedByString:@", "]);
+    [self getError:error
+      formatString:@"Argument should be {'%@' | '%@'} - found '[%@']", kDevice,
+     kStatusBar, [argument componentsJoinedByString:@", "]];
     return nil;
   }
 
-  NSString *firstArg = [argument objectAtIndex:0];
-  if ([@[kDevice, kStatusBar] containsObject:firstArg] == NO) {
-    LPLogWarn(@"Argument should be {'%@' | '%@'} - found '%@'", kDevice,
-            kStatusBar, firstArg);
+  NSString *firstArg = argument[0];
+  if (![@[kDevice, kStatusBar] containsObject:firstArg]) {
+    [self getError:error
+      formatString:@"Argument should be {'%@' | '%@'} - found '%@'",
+     kDevice, kStatusBar, firstArg];
   }
 
   if ([kDevice isEqualToString:firstArg]) {
@@ -122,7 +125,7 @@ static NSString *const kFaceUp = @"face up";
     return [LPOrientationOperation statusBarOrientation];
   } else {
     LPLogWarn(@"Fell through conditions for arguments: '[%@]'",
-            [argument componentsJoinedByString:@", "]);
+              [argument componentsJoinedByString:@", "]);
     return nil;
   }
 }

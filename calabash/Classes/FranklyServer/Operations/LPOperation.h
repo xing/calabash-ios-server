@@ -36,6 +36,7 @@ extern NSString const *kLPServerOperationErrorToken;
 - (id) performWithTarget:(id) target error:(NSError **) error;
 
 - (void)getError:(NSError *__autoreleasing*)error
- withDescription:(NSString *)description;
+    formatString:(NSString *)format, ...;
+
 
 @end

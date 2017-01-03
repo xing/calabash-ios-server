@@ -16,8 +16,8 @@
 //    required ===========> |     optional
 //  _arguments => [value_str,  notify targets, animate]
 - (id) performWithTarget:(id) target error:(NSError * __autoreleasing *) error {
-  if ([target isKindOfClass:[UISlider class]] == NO) {
-    LPLogWarn(@"View %@ should be a UISlier", target);
+  if (![target isKindOfClass:[UISlider class]]) {
+    [self getError:error formatString:@"View %@ should be a UISlider", target];
     return nil;
   }
 
@@ -27,33 +27,33 @@
 
   NSString *valueStr = arguments[0];
   if (valueStr == nil || [valueStr length] == 0) {
-    LPLogWarn(@"Value str: '%@' should be non-nil and non-empty",
-            valueStr);
+    [self getError:error
+      formatString:@"Value str: '%@' should be non-nil and non-empty", valueStr];
     return nil;
   }
 
   CGFloat targetValue = [valueStr floatValue];
 
-  NSUInteger argcount = [arguments count];
+  NSUInteger argCount = [arguments count];
 
   BOOL notifyTargets = YES;
-  if (argcount > 1) {
+  if (argCount > 1) {
     notifyTargets = [arguments[1] boolValue];
   }
 
   BOOL animate = YES;
-  if (argcount > 2) {
+  if (argCount > 2) {
     animate = [arguments[2] boolValue];
   }
 
   if (targetValue > [slider maximumValue]) {
-    LPLogWarn(@"Target value '%.2f' is greater than slider max value '%.2f' - will slide to max value",
-            targetValue, [slider maximumValue]);
+    LPLogWarn(@"Target value '%.2f' is greater than slider max value '%.2f' - "
+              "will slide to max value", targetValue, [slider maximumValue]);
   }
 
   if (targetValue < [slider minimumValue]) {
-    LPLogWarn(@"Target value '%.2f' is less than slider min value '%.2f' - will slide to min value",
-            targetValue, [slider minimumValue]);
+    LPLogWarn(@"Target value '%.2f' is less than slider min value '%.2f' - "
+              "will slide to min value", targetValue, [slider minimumValue]);
   }
 
   if (notifyTargets) {
@@ -64,4 +64,5 @@
 
   return [LPJSONUtils jsonifyObject:target];
 }
+
 @end

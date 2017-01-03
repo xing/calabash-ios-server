@@ -106,8 +106,14 @@ NSString const *kLPServerOperationErrorToken = @"LPOperationErrorToken";
 }
 
 - (void)getError:(NSError *__autoreleasing*)error
- withDescription:(NSString *)description {
-   NSError *innerError = [self errorWithDescription:description];
+    formatString:(NSString *)format, ... {
+  va_list args;
+  va_start(args, format);
+  NSString *description = [[NSString alloc] initWithFormat:format arguments:args];
+  va_end(args);
+
+  NSError *innerError = [self errorWithDescription:description];
+
   if (error) { *error = innerError; }
 }
 
