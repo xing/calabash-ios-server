@@ -3,6 +3,7 @@
 #endif
 
 #import "LPStatusBarRoute.h"
+#import <UIKit/UIKit.h>
 #import "LPOrientationOperation.h"
 
 @implementation LPStatusBarRoute

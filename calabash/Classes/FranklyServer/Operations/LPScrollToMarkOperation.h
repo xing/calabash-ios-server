@@ -8,6 +8,8 @@
 
 #import "LPOperation.h"
 
+@class UIView;
+
 @interface LPScrollToMarkOperation : LPOperation
 
 - (BOOL) view:(UIView *) aView hasMark:(NSString *) aMark;

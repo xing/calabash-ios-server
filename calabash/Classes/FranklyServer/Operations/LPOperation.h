@@ -5,7 +5,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIScriptParser.h"
 
 @interface LPOperation : NSObject
 

@@ -11,6 +11,7 @@
 #endif
 
 #import "LPCollectionViewScrollToItemWithMarkOperation.h"
+#import <UIKit/UIKit.h>
 #import "LPCocoaLumberjack.h"
 
 @implementation LPCollectionViewScrollToItemWithMarkOperation

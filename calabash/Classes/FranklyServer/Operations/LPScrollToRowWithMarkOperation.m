@@ -3,6 +3,7 @@
 #endif
 
 #import "LPScrollToRowWithMarkOperation.h"
+#import <UIKit/UIKit.h>
 #import "LPCocoaLumberjack.h"
 
 @implementation LPScrollToRowWithMarkOperation

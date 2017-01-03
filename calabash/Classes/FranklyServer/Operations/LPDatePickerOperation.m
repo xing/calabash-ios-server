@@ -3,6 +3,7 @@
 #endif
 
 #import "LPDatePickerOperation.h"
+#import <UIKit/UIKit.h>
 #import "LPCocoaLumberjack.h"
 
 @implementation LPDatePickerOperation

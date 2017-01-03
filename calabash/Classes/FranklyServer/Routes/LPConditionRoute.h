@@ -7,7 +7,6 @@
 //
 #import <Foundation/Foundation.h>
 #import "LPRoute.h"
-#import "LPHTTPResponse.h"
 #import "LPGenericAsyncRoute.h"
 
 @interface LPConditionRoute : LPGenericAsyncRoute

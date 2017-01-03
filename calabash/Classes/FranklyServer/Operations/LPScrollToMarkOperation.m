@@ -11,6 +11,7 @@
 #endif
 
 #import "LPScrollToMarkOperation.h"
+#import <UIKit/UIKit.h>
 #import "LPInvoker.h"
 #import "LPInvocationResult.h"
 #import "LPScrollToRowWithMarkOperation.h"

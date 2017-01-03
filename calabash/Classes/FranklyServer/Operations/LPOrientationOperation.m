@@ -10,6 +10,7 @@
 //
 
 #import "LPOrientationOperation.h"
+#import <UIKit/UIKit.h>
 #import "LPCocoaLumberjack.h"
 
 static NSString *const kDevice = @"device";

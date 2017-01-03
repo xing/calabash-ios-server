@@ -9,6 +9,7 @@
 //
 
 #import "LPOperation.h"
+#import "UIScriptParser.h"
 #import "LPScrollToMarkOperation.h"
 #import "LPScrollToRowOperation.h"
 #import "LPScrollToRowWithMarkOperation.h"
@@ -106,7 +107,7 @@
   [parser parse];
 
   NSArray *allWindows = [LPTouchUtils applicationWindows];
-  
+
   NSArray *result = [parser evalWith:allWindows];
 
   return result;

@@ -11,6 +11,7 @@
 #endif
 
 #import "LPScrollToRowOperation.h"
+#import <UIKit/UIKit.h>
 #import "LPCocoaLumberjack.h"
 
 @implementation LPScrollToRowOperation
