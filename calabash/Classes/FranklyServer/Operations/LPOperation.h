@@ -6,6 +6,24 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * Operations should return this token if performing the operation should
+ * result in an HTTP error response.
+ *
+ * This is necessary because, for some operations, nil is valid response.
+ * Even if nil were not a valid response, existing clients expect nil to
+ * indicate an error response.
+ *
+ * The alternative is to use a nil check on the NSError argument of
+ * performWithTarget:error:.  This is problematic for two reasons:
+ *
+ * 1. By convention nil checks on errors are frowned upon because in the past
+ *    Cocoa APIs were allowed to scribble on NSError references.
+ * 2. Some existing operations can generate errors, but should not result in
+ *    an HTTP error response.
+ */
+extern NSString const *kLPServerOperationErrorToken;
+
 @interface LPOperation : NSObject
 
 @property(nonatomic, assign, readonly) SEL selector;

@@ -30,6 +30,8 @@
 #import "LPJSONUtils.h"
 #import "CocoaLumberjack.h"
 
+NSString const *kLPServerOperationErrorToken = @"LPOperationErrorToken";
+
 @interface LPOperation ()
 
 @end
