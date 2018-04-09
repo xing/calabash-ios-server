@@ -427,6 +427,7 @@
 		F532C1E31AFF4F250024DA55 /* LPCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = F532C1E01AFF4F240024DA55 /* LPCoreDataStack.m */; };
 		F532C1E41AFF4F250024DA55 /* LPTestTarget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F532C1E11AFF4F240024DA55 /* LPTestTarget.xcdatamodeld */; };
 		F532C1E71AFF6A2D0024DA55 /* LPServerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F532C1E61AFF6A2D0024DA55 /* LPServerEntity.m */; };
+		F535DCC82077CA1E0090916A /* CalabashServerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F535DCC72077CA1E0090916A /* CalabashServerTest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F537397418E52014004133FA /* LPVersionRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = B153F55A15949F3D00867E12 /* LPVersionRoute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F537398D18E5253B004133FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B121E79714B6D9FB0034C6A9 /* Foundation.framework */; };
 		F537399B18E6E0BE004133FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F537399918E6E0BE004133FA /* main.m */; };
@@ -935,6 +936,7 @@
 		F532C1E21AFF4F250024DA55 /* XCTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XCTest.xcdatamodel; sourceTree = "<group>"; };
 		F532C1E51AFF6A2D0024DA55 /* LPServerEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LPServerEntity.h; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; wrapsLines = 1; };
 		F532C1E61AFF6A2D0024DA55 /* LPServerEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LPServerEntity.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; wrapsLines = 1; };
+		F535DCC72077CA1E0090916A /* CalabashServerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalabashServerTest.m; sourceTree = "<group>"; };
 		F537398C18E5253B004133FA /* version */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = version; sourceTree = BUILT_PRODUCTS_DIR; };
 		F537399918E6E0BE004133FA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F5419F0C1AF3D37000EAAA66 /* LPJSONUtils_AccessibilityElementTest.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LPJSONUtils_AccessibilityElementTest.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
@@ -1699,6 +1701,7 @@
 				F5C224E61AD47403001DB4FA /* Routes */,
 				F5543F201ABF7D7000E1A0BF /* Utils */,
 				F5A33A481AC009B600224639 /* WebViewQuery */,
+				F535DCC72077CA1E0090916A /* CalabashServerTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2933,6 +2936,7 @@
 				F50CBFBB1A0405CE004AC9DA /* UIScriptASTPredicate.m in Sources */,
 				F5A6B9751BD15877009FD08B /* LPProcessInfoRouteTest.m in Sources */,
 				F5C0945A1A97B7CB00AE5991 /* LPWebQuery.m in Sources */,
+				F535DCC82077CA1E0090916A /* CalabashServerTest.m in Sources */,
 				F5F2D5EF1ACACF2F0027937B /* LPWebViewUtils.m in Sources */,
 				F5986B161B58F57600CCB142 /* LPInvocationErrorTest.m in Sources */,
 				F5BA6F131B4E4D2B00DB898F /* LPInvokerTest.m in Sources */,

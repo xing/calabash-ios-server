@@ -29,7 +29,7 @@
 }
 
 - (void) testServerPortIsDefaultWhenNoInfoPlistKeyExists {
-  XCTAssertEqual([self.infoPlist serverPort], 37265);
+  XCTAssertEqual([self.infoPlist serverPort], 0);
 }
 
 - (void) testServerPortInfoPlistKeyExists {

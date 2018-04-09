@@ -3,8 +3,8 @@
 #endif
 
 #import "LPInfoPlist.h"
+#import "LPCocoaLumberjack.h"
 
-static unsigned short const LPCalabashServerDefaultPort = 37265;
 static NSString *const LPCalabashServerPortInfoPlistKey = @"CalabashServerPort";
 
 @interface LPInfoPlist ()
@@ -34,8 +34,12 @@ static NSString *const LPCalabashServerPortInfoPlistKey = @"CalabashServerPort";
   NSDictionary *info = self.infoDictionary;
   NSNumber *infoPlistValue = info[LPCalabashServerPortInfoPlistKey];
   if (!infoPlistValue) {
-    return LPCalabashServerDefaultPort;
+    LPLogDebug(@"Info.plist does not contain value for key %@",
+      LPCalabashServerPortInfoPlistKey);
+    return 0;
   } else {
+    LPLogDebug(@"Info.plist contains value for key %@ = %@",
+      LPCalabashServerPortInfoPlistKey, infoPlistValue);
     return [infoPlistValue unsignedShortValue];
   }
 }

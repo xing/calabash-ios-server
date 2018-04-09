@@ -3,6 +3,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class LPInfoPlist;
+
+extern NSString const* LPFServerPortEnvironmentKey;
+extern unsigned short const LPCalabashServerDefaultPort;
+
 @class LPHTTPServer;
 
 @interface CalabashServer : NSObject {
@@ -10,5 +15,6 @@
 }
 
 + (void) start;
++ (unsigned short)serverPortByDetectingFromEnvOrInfoPlist:(LPInfoPlist *)plist;
 
 @end

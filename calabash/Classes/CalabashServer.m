@@ -46,11 +46,54 @@
 #import "LPStatusBarRoute.h"
 #import "LPClearTextRoute.h"
 
+NSString const* LPFServerPortEnvironmentKey = @"LPF_SERVER_PORT";
+unsigned short const LPCalabashServerDefaultPort = 37265;
+
 @interface CalabashServer ()
 - (void) start;
 @end
 
 @implementation CalabashServer
+
++ (unsigned short)serverPortFromEnvironment {
+  NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+  NSString *value = environment[LPFServerPortEnvironmentKey];
+  unsigned short port = 0;
+  if (value) {
+    LPLogDebug(@"App environment includes value for key %@ : %@",
+    LPFServerPortEnvironmentKey, value);
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *number = [formatter numberFromString:value];
+    port = [number unsignedShortValue];
+    LPLogDebug(@"Attempting to make a port number from value %@ => %@ => %@",
+      value, number, @(port));
+    if (port == 0) {
+      port = USHRT_MAX;
+      LPLogDebug(@"Could not create a valid port number form %@; returning %@",
+        value, @(port));
+    }
+    [formatter release];
+  }
+  return port;
+}
+
++ (unsigned short)serverPortByDetectingFromEnvOrInfoPlist:(LPInfoPlist *)plist {
+  unsigned short fromEnv = [CalabashServer serverPortFromEnvironment];
+  if (fromEnv != 0) {
+    LPLogDebug(@"Detected port number from environment: %@", @(fromEnv));
+    return fromEnv;
+  }
+
+  unsigned short fromPlist = [plist serverPort];
+  if (fromPlist != 0) {
+    LPLogDebug(@"Detected port number from Info.plist: %@", @(fromPlist));
+    return fromPlist;
+  }
+
+  LPLogDebug(@"Will use the default port number: %@", @(LPCalabashServerDefaultPort));
+  return LPCalabashServerDefaultPort;
+}
 
 + (void)redirectSimulatorLogsToUserLibraryCoreSimulatorLogs {
   static dispatch_once_t onceToken;
@@ -243,8 +286,9 @@
     [_httpServer setConnectionClass:[LPRouter class]];
 
     LPInfoPlist *infoPlist = [LPInfoPlist new];
-    [_httpServer setPort:[infoPlist serverPort]];
-
+    unsigned short port;
+    port = [CalabashServer serverPortByDetectingFromEnvOrInfoPlist:infoPlist];
+    [_httpServer setPort:port];
     // Advertise this device's capabilities to our listeners inside of the TXT record
     UIDevice *device = [UIDevice currentDevice];
     NSDictionary *capabilities =

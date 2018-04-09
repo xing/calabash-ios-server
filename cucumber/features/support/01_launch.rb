@@ -57,8 +57,6 @@ Could not find LPSERVERID embedded in app calabash.framework not linked
       "XTC_SKIP_LPSERVER_TOKEN" => server_id.split("=")[1],
       "DYLD_INSERT_LIBRARIES" => File.join(app.path, "libCalabashFAT.dylib")
     }
-
-    @skip_embedded_server_options
   end
 end
 
@@ -76,6 +74,22 @@ Before("@german") do
   end
 end
 
+Before("@port_from_env") do |scenario|
+  if !xamarin_test_cloud?
+    port = 37266
+    @port_from_env_options = {
+      env: { "LPF_SERVER_PORT" => port },
+      terminate_aut_before_test: true
+    }
+
+    @original_endpoint = Calabash::Cucumber::Environment.device_endpoint
+    uri = URI.parse(@original_endpoint)
+
+    new_endpoint = "#{uri.scheme}://#{uri.host}:#{port}"
+    ENV["DEVICE_ENDPOINT"] = new_endpoint
+  end
+end
+
 Before do |scenario|
   launcher = Calabash::Launcher.launcher
 
@@ -85,6 +99,8 @@ Before do |scenario|
     options = @device_agent_test_app_options
   elsif @skip_embedded_server_options
     options = @skip_embedded_server_options
+  elsif @port_from_env_options
+    options = @port_from_env_options
   else
     options = {
       # Add launch options here.
@@ -131,11 +147,20 @@ After("@german") do
   end
 end
 
+After("@port_from_env") do
+  if !xamarin_test_cloud?
+    calabash_exit
+    sleep 1.0
+    ENV["DEVICE_ENDPOINT"] = @original_endpoint
+  end
+end
+
 After do |scenario|
   @no_relaunch = false
   @acquaint_options = nil
   @device_agent_test_app_options = nil
   @skip_embedded_server_options = nil
+  @port_from_env_options = nil
   # Calabash can shutdown the app cleanly by calling the app life cycle methods
   # in the UIApplicationDelegate.  This is really nice for CI environments, but
   # not so good for local development.

@@ -18,6 +18,7 @@
 #import "LPInfoPlist.h"
 #import "LPGitVersionDefines.h"
 #import "LPCocoaLumberjack.h"
+#import "CalabashServer.h"
 
 // See the LPGitVersionDefines.h
 //
@@ -201,7 +202,7 @@ static NSString *const kLPGitRemoteOrigin = @"Unknown LP_GIT_REMOTE_ORIGIN";
     @"device_name" : deviceName,
     @"outcome" : @"SUCCESS",
     @"screen_dimensions" : [[LPDevice sharedDevice] screenDimensions],
-    @"server_port" : @([infoPlist serverPort]),
+    @"server_port" : @([CalabashServer serverPortByDetectingFromEnvOrInfoPlist:infoPlist]),
     @"short_version_string" : [infoPlist stringForShortVersion],
     @"simulator" : simulatorInfo,
     @"version" : calabashVersion,
