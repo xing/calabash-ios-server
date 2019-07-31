@@ -1,0 +1,59 @@
+jobs:
+
+- job:
+  strategy:
+    matrix:
+      Mojave-Xcode-10.2.1:
+        IMAGE_POOL: 'macOS-10.14'
+        XCODE_VERSION: '10.2.1'
+      Mojave-Xcode-11.0:
+        IMAGE_POOL: 'macOS-10.14'
+        XCODE_VERSION: '11'
+  pool:
+    vmImage: $(IMAGE_POOL)
+  
+  steps:
+
+  - script: |
+      sudo xcode-select --switch "/Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer"
+    displayName: "Select Xcode $(XCODE_VERSION)"
+
+  - script: brew install tree
+    displayName: "Install brew dependencies"
+
+  - script: xcodebuild -version
+    displayName: "Version of xcodebuild"
+
+  - script: git clone -b develop https://github.com/calabash/FBSimulatorControl.git ../FBSimulatorControl
+    displayName: "Download FBSimulatorControl"
+  
+  - script: |
+      git clone https://$(GitHubAccessToken)@github.com/xamarinhq/calabash-codesign.git ../calabash-codesign
+      ../calabash-codesign/apple/create-keychain.sh
+    displayName: "Download and install keychain"
+
+  - script: bundle install
+    displayName: "Bundle install"
+
+  - script: make xctests
+    displayName: "Make xctests"
+
+  - script: make framework
+    displayName: "Make framework"
+
+  - script: make dylibs
+    displayName: "Make dylibs"
+
+  - script: make app-cal
+    displayName: "Make app-call"
+
+  - script: make ipa-cal
+    displayName: "Make ipa-call"
+
+  - script: | 
+      cd cucumber
+      bundle update
+      bundle exec cucumber
+    displayName: "Exec cucumber"
+
+
