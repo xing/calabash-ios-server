@@ -39,7 +39,7 @@ jobs:
     displayName: "Make xctests"
 
   - script: bundle exec bin/test/cucumber.rb
-    display: "exec cucmber"
+    displayName: "exec cucmber"
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
