@@ -35,6 +35,9 @@ jobs:
   - script: MAKE_FRAMEWORK=0 make ipa-cal
     displayName: "Make ipa-call"
 
+  - script: bundle install
+    displayName: "Bundle install"
+
   - script: bundle exec bin/test/xctest.rb
     displayName: "Make xctests"
 
