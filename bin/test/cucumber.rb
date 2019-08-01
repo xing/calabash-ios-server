@@ -52,10 +52,17 @@ Dir.chdir working_dir do
         :iphone7 => 'iPhone 7'
       }
     else
-      devices = {
-        :iphone7 => 'iPhone 7',
-        :iphone7plus => 'iPhone 7 Plus'
-      }
+      if xcode_version.major < 11
+        devices = {
+          :iphone7 => 'iPhone XS',
+          :iphone7plus => 'iPhone XS Max'
+        }
+      else
+        devices = {
+          :iphone7 => 'iPhone Xs',
+          :iphone7plus => 'iPhone Xs Max'
+        }
+      end
     end
 
     RunLoop::CoreSimulator.quit_simulator
