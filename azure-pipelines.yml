@@ -35,7 +35,7 @@ jobs:
   - script: MAKE_FRAMEWORK=0 make ipa-cal
     displayName: "Make ipa-call"
 
-  - script: gtimeout --foreground --signal SIGKILL 74m bundle exec bin/test/xctest.rb
+  - script: bundle exec bin/test/xctest.rb
     displayName: "Make xctests"
 
   - script: bundle exec bin/test/cucumber.rb
