@@ -56,4 +56,11 @@ jobs:
       bundle exec cucumber
     displayName: "Exec cucumber"
 
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFiles: 'cucumber/reports/junit/*.xml'
+      failTaskOnFailedTests: true
+    condition: always()
+
 
