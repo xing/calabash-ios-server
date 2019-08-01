@@ -51,6 +51,7 @@ jobs:
     displayName: "Make ipa-call"
 
   - script: | 
+      set -e
       cd cucumber
       bundle update
       bundle exec cucumber
