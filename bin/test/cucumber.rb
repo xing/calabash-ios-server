@@ -54,11 +54,13 @@ Dir.chdir working_dir do
     elsif ENV["AGENT_VERSION"]
       if xcode_version.major < 11
         devices = {
-          :iphoneXs => 'iPhone Xʀ',
+          :iPhoneXs: => 'iPhone Xs',
+          :iphoneXr => 'iPhone Xʀ',
         }
       else
         devices = {
-          :iphoneXs => 'iPhone Xʀ',
+          :iPhoneXs: => 'iPhone Xs',
+          :iphoneXr => 'iPhone Xʀ',
         }
       end
     else
