@@ -38,6 +38,9 @@ jobs:
   - script: bundle install
     displayName: "Bundle install"
 
+  - script: npm install -g appcenter-cli
+    displayName: "install appcenter-cli"
+
   - script: bundle exec bin/ci/jenkins/appcenter.sh
     displayName: "appcenter"
 
