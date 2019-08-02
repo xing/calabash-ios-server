@@ -51,25 +51,23 @@ Dir.chdir working_dir do
         :iphoneSE => 'iPhone SE',
         :iphone7 => 'iPhone 7'
       }
-    else
+    elsif ENV["AGENT_VERSION"]
       if xcode_version.major < 11
-        if xcode_version.minor < 2
-          devices = {
-            :iphoneXs => 'iPhone XS',
-            :iphoneX => 'iPhone X'
-          }
-        else
-          devices = {
-            :iphoneXs => 'iPhone Xs',
-            :iphoneX => 'iPhone X'
-          }
-        end
+        devices = {
+          :iphoneXs => 'iPhone XS',
+          :iphoneXr => 'iPhone XR'
+        }
       else
         devices = {
           :iphoneXs => 'iPhone Xs',
-          :iphoneX => 'iPhone X'
+          :iphoneXr => 'iPhone Xʀ'
         }
       end
+    else
+      devices = {
+        :iphone7Plus => 'iPhone 7 Plus',
+        :iphone7 => 'iPhone 7'
+      }
     end
 
     RunLoop::CoreSimulator.quit_simulator
