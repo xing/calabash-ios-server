@@ -41,8 +41,8 @@ jobs:
   - script: bundle exec bin/test/xctest.rb
     displayName: "Make xctests"
 
-  - script: DEBUG=1 bundle exec bin/test/cucumber.rb
-    displayName: "exec cucmber"
+  - script: bundle exec bin/test/cucumber.rb
+    displayName: "exec cucumber"
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
