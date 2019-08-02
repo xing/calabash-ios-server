@@ -38,6 +38,9 @@ jobs:
   - script: bundle install
     displayName: "Bundle install"
 
+  - script: bundle exec bin/ci/jenkins/appcenter.sh
+    displayName: "appcenter"
+
   - script: bundle exec bin/test/xctest.rb
     displayName: "Make xctests"
 
