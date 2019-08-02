@@ -46,28 +46,28 @@ Dir.chdir working_dir do
 
     if ENV["JENKINS_HOME"]
       devices = {
-        :iphoneXsMax => 'iPhone XS Max',
+        :iphone7Plus => 'iPhone 7 Plus',
         :air => 'iPad Air 2',
         :iphoneSE => 'iPhone SE',
-        :iphoneXs => 'iPhone XS'
+        :iphone7 => 'iPhone 7'
       }
     else
       if xcode_version.major < 11
         if xcode_version.minor < 2
           devices = {
             :iphoneXs => 'iPhone XS',
-            :iphoneXsMax => 'iPhone XS Max'
+            :iphoneX => 'iPhone X'
           }
         else
           devices = {
             :iphoneXs => 'iPhone Xs',
-            :iphoneXsMax => 'iPhone Xs Max'
+            :iphoneX => 'iPhone X'
           }
         end
       else
         devices = {
           :iphoneXs => 'iPhone Xs',
-          :iphoneXsMax => 'iPhone Xs Max'
+          :iphoneX => 'iPhone X'
         }
       end
     end
