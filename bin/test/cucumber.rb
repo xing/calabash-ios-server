@@ -39,49 +39,13 @@ Dir.chdir working_dir do
 
     env_vars = {}
 
-    passed_sims = []
-    failed_sims = []
     cucumber_cmd = "bundle exec cucumber -p simulator -f json -o reports/cucumber.json -f junit -o reports/junit #{cucumber_args}"
 
     exit_code = Luffa.unix_command(cucumber_cmd, {:exit_on_nonzero_status => false,
                                                   :env_vars => env_vars})
     if exit_code == 0
-      passed_sims << name
-    else
-      failed_sims << name
-    end
-
-
-    Luffa.log_info '=== SUMMARY ==='
-    Luffa.log_info ''
-    Luffa.log_info 'PASSING SIMULATORS'
-    passed_sims.each { |sim| Luffa.log_info(sim) }
-    Luffa.log_info ''
-    Luffa.log_info 'FAILING SIMULATORS'
-    failed_sims.each { |sim| Luffa.log_info(sim) }
-
-    sims = devices.count
-    passed = passed_sims.count
-    failed = failed_sims.count
-
-    puts ''
-    Luffa.log_info "passed on '#{passed}' out of '#{sims}'"
-
-    # if none failed then we have success
-    exit 0 if failed == 0
-
-    # the travis ci environment is not stable enough to have all tests passing
-    exit failed unless Luffa::Environment.travis_ci?
-
-    # we'll take 75% passing as good indicator of health
-    expected = 75
-    actual = ((passed.to_f/sims.to_f) * 100).to_i
-
-    if actual >= expected
-      Luffa.log_pass "We failed '#{failed}' sims, but passed '#{actual}%' so we say good enough"
       exit 0
     else
-      Luffa.log_fail "We failed '#{failed}' sims, which is '#{actual}%' and not enough to pass"
       exit 1
     end
   end
