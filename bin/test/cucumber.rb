@@ -41,19 +41,16 @@ Dir.chdir working_dir do
 
     passed_sims = []
     failed_sims = []
-    devices.each do |key, name|
-      cucumber_cmd = "bundle exec cucumber -p simulator -f json -o reports/cucumber.json -f junit -o reports/junit #{cucumber_args}"
+    cucumber_cmd = "bundle exec cucumber -p simulator -f json -o reports/cucumber.json -f junit -o reports/junit #{cucumber_args}"
 
-      exit_code = Luffa.unix_command(cucumber_cmd, {:exit_on_nonzero_status => false,
-                                                    :env_vars => env_vars})
-      if exit_code == 0
-        passed_sims << name
-      else
-        failed_sims << name
-      end
-
-      sleep(5.0)
+    exit_code = Luffa.unix_command(cucumber_cmd, {:exit_on_nonzero_status => false,
+                                                  :env_vars => env_vars})
+    if exit_code == 0
+      passed_sims << name
+    else
+      failed_sims << name
     end
+
 
     Luffa.log_info '=== SUMMARY ==='
     Luffa.log_info ''
