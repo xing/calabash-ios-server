@@ -60,7 +60,6 @@ Dir.chdir working_dir do
       else
         devices = {
           :iPhoneXs => 'iPhone Xs',
-          :iphoneXr => 'iPhone Xʀ',
         }
       end
     else
