@@ -37,58 +37,12 @@ Dir.chdir working_dir do
 
     require "run_loop"
 
-    xcode = RunLoop::Xcode.new
-    xcode_version = xcode.version
-    sim_major = xcode_version.major + 2
-    sim_minor = xcode_version.minor
-
-    sim_version = RunLoop::Version.new("#{sim_major}.#{sim_minor}")
-
-    if ENV["JENKINS_HOME"]
-      devices = {
-        :iphone7Plus => 'iPhone 7 Plus',
-        :air => 'iPad Air 2',
-        :iphoneSE => 'iPhone SE',
-        :iphone7 => 'iPhone 7'
-      }
-    elsif ENV["AGENT_VERSION"]
-      if xcode_version.major < 11
-        devices = {
-          :iPhoneXs => 'iPhone Xs',
-          :iphoneXr => 'iPhone Xʀ',
-        }
-      else
-        devices = {
-          :iPhoneXs => 'iPhone Xs',
-        }
-      end
-    else
-      devices = {
-        :iphone7Plus => 'iPhone 7 Plus',
-        :iphone7 => 'iPhone 7'
-      }
-    end
-
-    RunLoop::CoreSimulator.quit_simulator
-
-    simulators = RunLoop::Simctl.new.simulators
-
     env_vars = {}
 
     passed_sims = []
     failed_sims = []
     devices.each do |key, name|
       cucumber_cmd = "bundle exec cucumber -p simulator -f json -o reports/cucumber.json -f junit -o reports/junit #{cucumber_args}"
-
-      match = simulators.find do |sim|
-        sim.name == name && sim.version == sim_version
-      end
-
-      if !match
-        raise "Could not find a match for simulator with name #{name}"
-      end
-
-      env_vars = {"DEVICE_TARGET" => match.udid}
 
       exit_code = Luffa.unix_command(cucumber_cmd, {:exit_on_nonzero_status => false,
                                                     :env_vars => env_vars})
@@ -98,7 +52,6 @@ Dir.chdir working_dir do
         failed_sims << name
       end
 
-      RunLoop::CoreSimulator.quit_simulator
       sleep(5.0)
     end
 
