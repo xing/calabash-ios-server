@@ -35,6 +35,9 @@ jobs:
   - script: MAKE_FRAMEWORK=0 make ipa-cal
     displayName: "Make ipa-call"
 
+  - script: MAKE_FRAMEWORK=0 make app-cal
+    displayName: "Make app-call"
+
   - script: bundle install
     displayName: "Bundle install"
 
