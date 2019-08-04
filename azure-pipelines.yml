@@ -26,6 +26,10 @@ jobs:
       calabash-codesign/apple/create-keychain.sh
     displayName: "Download and install keychain"
 
+  - script: |
+      ps -ax
+    displayName: "Show processes"
+
   - script: make framework
     displayName: "Make framework"
 
@@ -46,6 +50,11 @@ jobs:
 
   - script: bundle exec bin/test/cucumber.rb
     displayName: "Run cucumber"
+
+  - script: |
+      ps -ax
+    displayName: "Show processes"
+    condition: always()
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
