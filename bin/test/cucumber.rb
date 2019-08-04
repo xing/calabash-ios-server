@@ -45,7 +45,7 @@ Dir.chdir working_dir do
     sim_version = RunLoop::Version.new("#{sim_major}.#{sim_minor}")
 
     RunLoop::CoreSimulator.quit_simulator
-    RunLoop::CoreSimulator.terminate_core_simulator_processes
+    #RunLoop::CoreSimulator.terminate_core_simulator_processes
     
     devices = {
         :iphoneXs => 'iPhone Xs',
@@ -82,7 +82,7 @@ Dir.chdir working_dir do
       end
 
       RunLoop::CoreSimulator.quit_simulator
-      RunLoop::CoreSimulator.terminate_core_simulator_processes
+      #RunLoop::CoreSimulator.terminate_core_simulator_processes
       sleep(5.0)
     end
 
