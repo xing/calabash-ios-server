@@ -41,8 +41,8 @@ jobs:
   - script: bundle install
     displayName: "Bundle install"
 
-  #- script: bundle exec bin/test/xctest.rb
-  #  displayName: "Make xctests"
+  - script: bundle exec bin/test/xctest.rb
+    displayName: "Make xctests"
 
   - script: bundle exec bin/test/cucumber.rb
     displayName: "Run cucumber"
