@@ -54,8 +54,7 @@ Dir.chdir working_dir do
     elsif RunLoop::Environment.azurepipelines?
       devices = {
         :iphoneXs => 'iPhone Xs',
-        :iphoneXsMax => 'iPhone Xs Max',
-        :iphoneXr => 'iPhone Xʀ'
+        :iphoneXsMax => 'iPhone Xs Max'
       }
     else
       devices = {
