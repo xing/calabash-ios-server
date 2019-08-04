@@ -44,12 +44,12 @@ Dir.chdir working_dir do
 
     sim_version = RunLoop::Version.new("#{sim_major}.#{sim_minor}")
 
-    RunLoop::CoreSimulator.quit_simulator
-    RunLoop::CoreSimulator.terminate_core_simulator_processes
+    #RunLoop::CoreSimulator.quit_simulator
+    #RunLoop::CoreSimulator.terminate_core_simulator_processes
     
     devices = {
         :iphoneXs => 'iPhone Xs',
-        :iphoneXsMax => 'iPhone Xs Max'
+        #:iphoneXsMax => 'iPhone Xs Max'
     }
 
     simulators = RunLoop::Simctl.new.simulators
@@ -79,8 +79,8 @@ Dir.chdir working_dir do
         failed_sims << name
       end
 
-      RunLoop::CoreSimulator.quit_simulator
-      RunLoop::CoreSimulator.terminate_core_simulator_processes
+      #RunLoop::CoreSimulator.quit_simulator
+      #RunLoop::CoreSimulator.terminate_core_simulator_processes
       sleep(5.0)
     end
 
