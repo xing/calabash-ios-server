@@ -59,6 +59,7 @@ Dir.chdir working_dir do
     passed_sims = []
     failed_sims = []
     devices.each do |key, name|
+      Luffa.unix_command("bundle exec run-loop simctl manage-processes")
       cucumber_cmd = "bundle exec cucumber -p simulator -f json -o reports/cucumber.json -f junit -o reports/junit #{cucumber_args}"
 
       match = simulators.find do |sim|

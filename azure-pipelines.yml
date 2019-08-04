@@ -27,6 +27,10 @@ jobs:
     displayName: "Download and install keychain"
 
   - script: |
+      xcrun instruments -s devices
+    displayName: "Show simulators"
+
+  - script: |
       ps -ax
     displayName: "Show processes"
 
