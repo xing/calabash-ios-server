@@ -44,7 +44,7 @@ Dir.chdir working_dir do
 
     sim_version = RunLoop::Version.new("#{sim_major}.#{sim_minor}")
 
-    #RunLoop::CoreSimulator.quit_simulator
+    RunLoop::CoreSimulator.quit_simulator
     devices = {
         #:iphoneXs => 'iPhone Xs',
         :iphoneXsMax => 'iPhone Xs Max'
