@@ -80,7 +80,7 @@ end
 When(/^running locally the entitlement injector is not loaded$/) do
   if !RunLoop::Environment.xtc?
     mark = "Tomato: still a fruit"
-    timeout = 10
+    timeout = 100
     message = "Timed out waiting for #{mark} after #{timeout} seconds"
     options = {timeout: timeout, timeout_message: message}
     wait_for_element_exists("* marked:'#{mark}'", options)
