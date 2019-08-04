@@ -38,8 +38,8 @@ jobs:
   - script: MAKE_FRAMEWORK=0 make app-cal
     displayName: "Make app-call"
 
-  #- script: bundle install
-  #  displayName: "Bundle install"
+  - script: bundle install
+    displayName: "Bundle install"
 
   #- script: bundle exec bin/test/xctest.rb
   #  displayName: "Make xctests"
