@@ -50,6 +50,7 @@ Dir.chdir working_dir do
     devices = {
         :iphoneXs => 'iPhone Xs',
         :iphoneXsMax => 'iPhone Xs Max'
+        :iphoneXr => 'iPhone Xʀ'
     }
 
     simulators = RunLoop::Simctl.new.simulators
