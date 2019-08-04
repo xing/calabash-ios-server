@@ -64,14 +64,16 @@ Dir.chdir working_dir do
       }
     end
 
+    RunLoop::CoreSimulator.terminate_core_simulator_processes
+
     simulators = RunLoop::Simctl.new.simulators
+
     env_vars = {}
 
     passed_sims = []
     failed_sims = []
     devices.each do |key, name|
-      #Luffa.unix_command("bundle exec run-loop simctl manage-processes")
-      RunLoop::CoreSimulator.terminate_core_simulator_processes
+      Luffa.unix_command("bundle exec run-loop simctl manage-processes")
       cucumber_cmd = "bundle exec cucumber -p simulator -f json -o reports/cucumber.json -f junit -o reports/junit #{cucumber_args}"
 
       match = simulators.find do |sim|
@@ -92,6 +94,7 @@ Dir.chdir working_dir do
         failed_sims << name
       end
 
+      RunLoop::CoreSimulator.terminate_core_simulator_processes
       sleep(5.0)
     end
 
