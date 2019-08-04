@@ -46,7 +46,7 @@ Dir.chdir working_dir do
 
     RunLoop::CoreSimulator.quit_simulator
     devices = {
-        #:iphoneXs => 'iPhone Xs',
+        :iphoneXs => 'iPhone Xs',
         :iphoneXsMax => 'iPhone Xs Max'
     }
 
