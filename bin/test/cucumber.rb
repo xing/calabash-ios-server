@@ -77,7 +77,7 @@ Dir.chdir working_dir do
         failed_sims << name
       end
 
-      #RunLoop::CoreSimulator.quit_simulator
+      RunLoop::CoreSimulator.quit_simulator
       sleep(5.0)
     end
 
