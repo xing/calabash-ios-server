@@ -83,6 +83,8 @@ When(/^running locally the entitlement injector is not loaded$/) do
     timeout = 10
     message = "Timed out waiting for #{mark} after #{timeout} seconds"
     options = {timeout: timeout, timeout_message: message}
+    elements = query("*")
+    puts(elements)
     wait_for_element_exists("* marked:'#{mark}'", options)
   end
 end
