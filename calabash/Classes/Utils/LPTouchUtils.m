@@ -311,6 +311,7 @@
 
 + (NSArray *) accessibilityChildrenFor:(id) view {
   NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:32];
+  LPLogDebug(@"Current View Type: %@, Description: %@, Class: %@", view, [view description], NSStringFromClass([view class]));
   if ([view respondsToSelector:@selector(subviews)]) {
     [arr addObjectsFromArray:[view subviews]];
   }
