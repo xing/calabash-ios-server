@@ -314,10 +314,13 @@
   LPLogDebug(@"Current View Type: %@, Description: %@, Class: %@", view, [view description], NSStringFromClass([view class]));
   if ([view respondsToSelector:@selector(subviews)]) {
     [arr addObjectsFromArray:[view subviews]];
+  } else {
+    LPLogDebug(@"Does not respond to subviews selector");
   }
   if ([view respondsToSelector:@selector(accessibilityElementCount)] &&
       [view respondsToSelector:@selector(accessibilityElementAtIndex:)]) {
     NSInteger count = [view accessibilityElementCount];
+    LPLogDebug(@"Accessibility Item Count: %li", (long)count);
     if (count == 0 || count == NSNotFound) {
       return [NSArray arrayWithArray:arr];
     }
