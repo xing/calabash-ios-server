@@ -112,7 +112,7 @@
       //
       // What should be done if one view generates and another does not?
       id val = [op performWithTarget:view error:&err];
-      LPLogInfo(@"DEBUGX: %@:%@ performwithtarget %@ %@", self, NSStringFromSelector(_cmd), view, err);
+      LPLogInfo(@"DEBUGX: %@:%@ performwithtarget %@", self, NSStringFromSelector(_cmd), view);
       if (err) {continue;}
       if (val == nil) {
         [finalRes addObject:[NSNull null]];
@@ -121,6 +121,7 @@
       }
     }
   }
+  LPLogInfo(@"DEBUGX: %@:%@ finalres: %@", self, NSStringFromSelector(_cmd), finalRes);
   return finalRes;
 }
 

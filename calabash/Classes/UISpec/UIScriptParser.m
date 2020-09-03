@@ -92,7 +92,7 @@ static NSCharacterSet *curlyBrackets = nil;
 
 
 - (void) parse {
-  LPLogInfo(@"DEBUG: %@:%@ %@", self, NSStringFromSelector(_cmd));
+  LPLogInfo(@"DEBUG: %@:%@", self, NSStringFromSelector(_cmd));
   if (colon == nil) {
     colon = [NSCharacterSet characterSetWithCharactersInString:@":"];
   }

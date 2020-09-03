@@ -11,7 +11,7 @@
 @implementation LPQueryOperation
 
 - (id) performWithTarget:(id) target error:(NSError **) error {
-  LPLogInfo(@"DEBUG: %@:%@ %@ %@", self, NSStringFromSelector(_cmd), target, error);
+  LPLogInfo(@"DEBUG: %@:%@ %@", self, NSStringFromSelector(_cmd), target);
   return [super performWithTarget:target error:error];
 }
 
