@@ -95,11 +95,13 @@
   NSMutableArray *finalRes = [NSMutableArray arrayWithCapacity:[views count]];
 
   if (!views) {
+    LPLogInfo(@"DEBUGX: %@:%@ !views", self, NSStringFromSelector(_cmd));
     id res = [op performWithTarget:nil error:error];
     if (res != nil) {
       [finalRes addObject:res];
     }
   } else {
+    LPLogInfo(@"DEBUGX: %@:%@ has views", self, NSStringFromSelector(_cmd));
     for (id view in views) {
       NSError *err = nil;
       // TODO: Do nothing on error?
@@ -110,6 +112,7 @@
       //
       // What should be done if one view generates and another does not?
       id val = [op performWithTarget:view error:&err];
+      LPLogInfo(@"DEBUGX: %@:%@ performwithtarget %@ %@", self, NSStringFromSelector(_cmd), view, err);
       if (err) {continue;}
       if (val == nil) {
         [finalRes addObject:[NSNull null]];
@@ -137,6 +140,7 @@
 
     NSArray *allWindows = [LPTouchUtils applicationWindows];
     result = [self.parser evalWith:allWindows];
+    LPLogInfo(@"DEBUGX: %@:%@ result: %@", self, NSStringFromSelector(_cmd), result);
   } else {
     result = nil;
   }
@@ -147,6 +151,7 @@
                                         error:&error];
 
   NSDictionary *resultDict = nil;
+  LPLogInfo(@"DEBUGX: %@:%@ resultArray %@", self, NSStringFromSelector(_cmd), resultArray);
   if (resultArray) {
     resultDict =
     @{
