@@ -5,11 +5,13 @@
 //
 
 #import "LPQueryOperation.h"
+#import "LPCocoaLumberjack.h"
 
 
 @implementation LPQueryOperation
 
 - (id) performWithTarget:(id) target error:(NSError **) error {
+  LPLogInfo(@"DEBUG: %@:%s %@ %@", self, _cmd, target, error);
   return [super performWithTarget:target error:error];
 }
 

@@ -358,7 +358,7 @@
     view.alpha = originalAlpha;
     view.backgroundColor = originalBackgroundColor;
   } else {
-    //TODO implement flash in JavaScript
+    LPLogDebug(@"Flash Item: %@, Description: %@, Class: %@", viewOrDom, [viewOrDom description], NSStringFromClass([viewOrDom class]));
   }
 }
 

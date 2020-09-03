@@ -41,16 +41,19 @@
 @synthesize done = _done;
 
 - (id) initWithOperation:(NSDictionary *) operation {
+  LPLogInfo(@"DEBUG: %@:%s %@", self, _cmd, operation);
   self = [super init];
   if (self != nil) {
     _selector = NSSelectorFromString([operation objectForKey:@"method_name"]);
     _arguments = [operation objectForKey:@"arguments"];
     _done = NO;
+    LPLogDebug(@"Query target: %@, selector: %@, arguments: %@", self, [operation objectForKey:@"method_name"], [operation objectForKey:@"arguments"]);
   }
   return self;
 }
 
 + (id) operationFromDictionary:(NSDictionary *) dictionary {
+  LPLogInfo(@"DEBUG: %@:%s %@", self, _cmd, dictionary);
   NSString *opName = [dictionary valueForKey:@"method_name"];
   LPOperation *operation = nil;
   if ([opName isEqualToString:@"scrollToRow"]) {
@@ -95,6 +98,7 @@
 }
 
 + (NSArray *) performQuery:(id) query {
+  LPLogInfo(@"DEBUG: %@:%s %@", self, _cmd, query);
   UIScriptParser *parser = nil;
   if ([query isKindOfClass:[NSString class]]) {
     parser = [[UIScriptParser alloc] initWithUIScript:(NSString *) query];
@@ -133,6 +137,7 @@
  invocations pass through `query` and not map.
  */
 - (id) performWithTarget:(id) target error:(NSError *__autoreleasing*) error {
+  LPLogInfo(@"DEBUG: %@:%s %@ %@", self, _cmd, target, error);
   LPInvocationResult *invocationResult;
   invocationResult = [LPInvoker invokeSelector:self.selector
                                     withTarget:target

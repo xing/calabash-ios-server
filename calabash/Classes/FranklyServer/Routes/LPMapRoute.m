@@ -35,7 +35,7 @@
 // The connection argument will be: RoutingHTTPConnection which has the
 // 'postDataAsString' selector defined.
 - (id) handleRequestForPath:(NSArray *) path withConnection:(id) connection {
-
+  LPLogInfo(@"DEBUG: %@:%s %@", self, _cmd, path);
   if (![self canHandlePostForPath:path]) {
     return nil;
   }
@@ -86,6 +86,7 @@
 - (NSArray *) applyOperation:(NSDictionary *) operation
                      toViews:(NSArray *) views
                        error:(NSError *__autoreleasing*) error {
+  LPLogInfo(@"DEBUG: %@:%s %@ %@", self, _cmd, views, error);
   NSString *operationName = [operation objectForKey:@"method_name"];
 
   if (!operationName) {  return [views copy];  }
@@ -123,6 +124,7 @@
 - (NSDictionary *) JSONResponseForMethod:(NSString *) method
                                      URI:(NSString *) path
                                     data:(NSDictionary *) data {
+  LPLogInfo(@"DEBUG: %@:%s %@ %@: %@", self, _cmd, method, path, data);
   id scriptObj = [data objectForKey:@"query"];
   NSDictionary *operation = [data objectForKey:@"operation"];
   NSArray *result = nil;
