@@ -75,7 +75,7 @@
 
 
 - (id) initWithQuery:(NSArray *) aq {
-  LPLogInfo(@"DEBUG: %@:%s %@", self, _cmd, aq);
+  LPLogInfo(@"DEBUG: %@:%@ %@", self, NSStringFromSelector(_cmd), aq);
   self = [super init];
   if (self) {
     self.arrayQuery = aq;
@@ -92,7 +92,7 @@ static NSCharacterSet *curlyBrackets = nil;
 
 
 - (void) parse {
-  LPLogInfo(@"DEBUG: %@:%s %@", self, _cmd);
+  LPLogInfo(@"DEBUG: %@:%@ %@", self, NSStringFromSelector(_cmd));
   if (colon == nil) {
     colon = [NSCharacterSet characterSetWithCharactersInString:@":"];
   }
@@ -112,7 +112,7 @@ static NSCharacterSet *curlyBrackets = nil;
 
 
 - (void) parseArray {
-  LPLogInfo(@"DEBUG: %@:%s %@", self, _cmd, self.arrayQuery);
+  LPLogInfo(@"DEBUG: %@:%@ %@", self, NSStringFromSelector(_cmd), self.arrayQuery);
   for (NSObject *obj in self.arrayQuery) {
     //each object can be one of
     //String/Symbol/keyword
@@ -238,7 +238,7 @@ static NSCharacterSet *curlyBrackets = nil;
 
 
 - (void) parseString {
-  LPLogInfo(@"DEBUG: %@:%s", self, _cmd);
+  LPLogInfo(@"DEBUG: %@:%@", self, NSStringFromSelector(_cmd));
   NSUInteger index = 0;
   NSUInteger N = [_script length];
   NSString *token = [self findNextToken:&index];

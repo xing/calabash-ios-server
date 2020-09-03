@@ -19,7 +19,7 @@
 
 - (SEL) selectorByParsingValuesFromArray:(NSArray *) array
                                arguments:(NSMutableArray *) arguments {
-  LPLogInfo(@"DEBUG: %@:%s %@ %@", self, _cmd, array, arguments);
+  LPLogInfo(@"DEBUG: %@:%@ %@ %@", self, sel_getName(NSStringFromSelector(_cmd)), array, arguments);
   NSMutableString *selectorName = [NSMutableString stringWithCapacity:32];
   for (NSDictionary *selectorPart in array) {
     NSString *as = [selectorPart objectForKey:@"as"];
@@ -77,7 +77,7 @@
 }
 
 - (id) performWithTarget:(id) target error:(NSError **) error {
-  LPLogInfo(@"DEBUG: %@:%s %@ %@", self, _cmd, target, error);
+  LPLogInfo(@"DEBUG: %@:%@ %@ %@", self, NSStringFromSelector(_cmd), target, error);
   NSArray *arguments = self.arguments;
 
   if ([arguments count] <= 0) {
@@ -242,7 +242,7 @@
            args:(NSMutableArray *) args
        selector:(SEL) sel
       signature:(NSMethodSignature *) sig {
-  LPLogInfo(@"DEBUG: %@:%s %@ %@", self, _cmd, target, args);
+  LPLogInfo(@"DEBUG: %@:%@ %@ %@", self, NSStringFromSelector(_cmd), target, args);
   [invocation setSelector:sel];
   for (NSInteger i = 0, N = [args count]; i < N; i++) {
     id arg = [args objectAtIndex:i];
