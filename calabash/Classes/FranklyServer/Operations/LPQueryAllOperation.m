@@ -81,6 +81,7 @@
   NSArray *arguments = self.arguments;
 
   if ([arguments count] <= 0) {
+    LPLogInfo(@"DEBUGY: %@:%@ %@", self, NSStringFromSelector(_cmd), target);
     return [LPJSONUtils jsonifyObject:target];
   }
   for (NSInteger index = 0; index < [arguments count]; index++) {
@@ -114,6 +115,7 @@
                                               arguments:selectorArguments];
     }
 
+    LPLogInfo(@"DEBUGY: CALLING %@:%@ %@", self, NSStringFromSelector(selector), target);
     NSMethodSignature *signature = [target methodSignatureForSelector:selector];
     if (!signature || ![target respondsToSelector:selector]) {
       return @"*****";
